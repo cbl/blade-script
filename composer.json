@@ -1,0 +1,28 @@
+{
+	"name": "cbl/blade-script",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Lennart Carstens-Behrens",
+			"email": "lennart.carbe@gmail.com"
+		}
+	],
+	"require": {
+		"matthiasmullie/minify": "^1.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"BladeScript\\": "src/"
+		},
+		"files": [
+			"src/Support/helpers.php"
+		]
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"BladeScript\\ServiceProvider"
+			]
+		}
+	}
+}
