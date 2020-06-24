@@ -24,9 +24,9 @@ class Script
     /**
      * Create new style instance.
      *
-     * @param View $view
-     * @param string $name
-     * @param StyleCompiler $compiler
+     * @param  string  $name
+     * @param  ScriptEngine  $compiler
+     * @return void
      */
     public function __construct($path, ScriptEngine $engine)
     {

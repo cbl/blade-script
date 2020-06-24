@@ -41,7 +41,7 @@ and the storage folder where the compiled scripts are stored.
 php artisan vendor:publish --provider="BladeScript\ServiceProvider"
 ```
 
-## Include Styles
+## Include Scripts
 
 The blade component `x-scripts` includes all required scripts, so it may be
 placed at the very bottom of your **body**.
@@ -69,7 +69,16 @@ myFunction() {
 </x-script>
 ```
 
-## Clear Cache
+## Optimizing Scripts
+
+Blade scripts share the same behavior as Views. As suggested in the
+[View documentation](https://laravel.com/docs/7.x/views#optimizing-views), the
+`script:cache` command can be added to your deployment workflow to ensure that
+all scripts are compiled and thus improve performance.
+
+```shell
+php artisan script:cache
+```
 
 You may use the `script:clear` command to clear the script cache:
 

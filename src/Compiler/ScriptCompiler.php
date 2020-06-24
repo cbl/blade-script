@@ -71,9 +71,11 @@ class ScriptCompiler extends ViewCompiler implements CompilerInterface
      */
     public function compile($path)
     {
-        $script = $this->compileScript(
-            $this->getRaw($path)
-        );
+        if (!$raw = $this->getRaw($path)) {
+            return;
+        }
+
+        $script = $this->compileScript($raw);
 
         if (config('script.minify')) {
             $script = $this->engine->minify($script);
@@ -121,6 +123,10 @@ class ScriptCompiler extends ViewCompiler implements CompilerInterface
      */
     protected function getStyleFromString(string $string)
     {
+        if (!Str::contains($string, ['<x-script>', '</x-script>'])) {
+            return;
+        }
+
         return Str::between($string, '<x-script>', '</x-script>');
     }
 }

@@ -4,17 +4,25 @@ namespace BladeScript\Engines;
 
 use Illuminate\Support\Facades\File;
 use BladeScript\Contracts\ScriptEngine;
+use BladeScript\Compiler\ScriptCompiler;
 use Illuminate\View\Compilers\CompilerInterface;
 
 class CompilerEngine implements ScriptEngine
 {
     /**
+     * Script compiler instance.
+     *
+     * @var \BladeScript\Compiler\ScriptCompiler
+     */
+    protected $compiler;
+
+    /**
      * Create a new Blade view engine instance.
      *
-     * @param  \BladeStyle\StyleCompiler  $compiler
+     * @param  \BladeScript\Compiler\ScriptCompiler  $compiler
      * @return void
      */
-    public function __construct(CompilerInterface $compiler)
+    public function __construct(ScriptCompiler $compiler)
     {
         $this->compiler = $compiler;
     }
@@ -32,5 +40,15 @@ class CompilerEngine implements ScriptEngine
         }
 
         return File::get($this->compiler->getCompiledPath($path));
+    }
+
+    /**
+     * Get compiler.
+     *
+     * @return \BladeScript\Compiler\ScriptCompiler
+     */
+    public function getCompiler()
+    {
+        return $this->compiler;
     }
 }

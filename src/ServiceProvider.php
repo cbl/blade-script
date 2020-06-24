@@ -9,6 +9,7 @@ use BladeScript\Engines\MinifierEngine;
 use BladeScript\Compiler\ScriptCompiler;
 use BladeScript\Minifier\MullieMinifier;
 use BladeScript\Components\ScriptComponent;
+use BladeScript\Commands\ScriptCacheCommand;
 use BladeScript\Commands\ScriptClearCommand;
 use BladeScript\Components\ScriptsComponent;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
@@ -33,6 +34,8 @@ class ServiceProvider extends LaravelServiceProvider
         $this->registerScriptCompiler();
 
         $this->registerScriptClearCommand();
+
+        $this->registerScriptCacheCommand();
 
         $this->registerFactory();
 
@@ -130,6 +133,20 @@ class ServiceProvider extends LaravelServiceProvider
         });
 
         $this->commands(['command.script.clear']);
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerScriptCacheCommand()
+    {
+        $this->app->singleton('command.script.cache', function ($app) {
+            return new ScriptCacheCommand($app['script.factory']);
+        });
+
+        $this->commands(['command.script.cache']);
     }
 
     /**
