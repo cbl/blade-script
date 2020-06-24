@@ -1,6 +1,7 @@
 # Blade Script
 
-A package to easily add script to your blade components.
+A package to easily add scripts that are minified in production to your blade
+components.
 
 ```php
 <button class="btn" onlick="myFunction()">{{ $slot }}</button>
