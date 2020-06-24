@@ -23,7 +23,7 @@ Blade Script solves these problems. The javascript code can be minified in
 production and each script tag is only included once all without running a
 compiler separately. Also only required scripts are included.
 
-Additionally there is the possibility to use transpilers like
+Additionally there is the possibility to add transpilers like
 [babel](https://babeljs.io/).
 
 ## Installation
