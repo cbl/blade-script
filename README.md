@@ -1,13 +1,12 @@
 # Blade Script
 
-A package to easily add scripts that are minified in production to your blade
-components.
+A package to easily add transpiled & minified scripts to your blade components.
 
 ```php
 <button class="btn" onlick="myFunction()">{{ $slot }}</button>
 
 <x-script>
-myFunction() {
+function myFunction() {
     // Do something.
 }
 </x-script>
