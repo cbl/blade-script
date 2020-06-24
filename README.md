@@ -69,6 +69,14 @@ myFunction() {
 </x-script>
 ```
 
+## Clear Cache
+
+You may use the `script:clear` command to clear the script cache:
+
+```shell
+php artisan script:clear
+```
+
 ## Write Transpiler
 
 You can easily add transpilers to the compiler, the following example explains

@@ -9,8 +9,8 @@ use BladeScript\Engines\MinifierEngine;
 use BladeScript\Compiler\ScriptCompiler;
 use BladeScript\Minifier\MullieMinifier;
 use BladeScript\Components\ScriptComponent;
+use BladeScript\Commands\ScriptClearCommand;
 use BladeScript\Components\ScriptsComponent;
-use BladeScript\Contracts\ScriptEngine;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class ServiceProvider extends LaravelServiceProvider
@@ -31,6 +31,8 @@ class ServiceProvider extends LaravelServiceProvider
         $this->registerCompilerEngine();
 
         $this->registerScriptCompiler();
+
+        $this->registerScriptClearCommand();
 
         $this->registerFactory();
 
@@ -114,6 +116,20 @@ class ServiceProvider extends LaravelServiceProvider
         $this->app->singleton('script.engine.compiler', function ($app) {
             return new CompilerEngine($app['script.compiler']);
         });
+    }
+
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerScriptClearCommand()
+    {
+        $this->app->singleton('command.script.clear', function ($app) {
+            return new ScriptClearCommand($app['files']);
+        });
+
+        $this->commands(['command.script.clear']);
     }
 
     /**
