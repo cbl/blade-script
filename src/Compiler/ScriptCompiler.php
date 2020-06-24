@@ -2,6 +2,7 @@
 
 namespace BladeScript\Compiler;
 
+use Illuminate\Support\Str;
 use BladeScript\Contracts\Transpiler;
 use Illuminate\Filesystem\Filesystem;
 use BladeScript\Engines\MinifierEngine;
@@ -79,7 +80,7 @@ class ScriptCompiler extends ViewCompiler implements CompilerInterface
      * @param string $script
      * @return string
      */
-    public function compileScript(string $script)
+    public function compileScript($script)
     {
         foreach ($this->transpiler as $transpiler) {
             $script = $transpiler->transpile($script);
@@ -109,16 +110,6 @@ class ScriptCompiler extends ViewCompiler implements CompilerInterface
      */
     protected function getStyleFromString(string $string)
     {
-        preg_match('/<x-script [^>]*>(.|\n)*?<\/x-script>/', $string, $matches);
-
-        if (empty($matches)) {
-            preg_match('/<x-script>(.|\n)*?<\/x-script>/', $string, $matches);
-        }
-
-        if (empty($matches)) {
-            return;
-        }
-
-        return preg_replace('/<[^>]*>/', '', $matches[0]);
+        return Str::between($string, '<x-script>', '</x-script>');
     }
 }
