@@ -43,6 +43,17 @@ class ScriptCompiler extends ViewCompiler implements CompilerInterface
     }
 
     /**
+     * Get the path to the compiled version of a script.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function getCompiledPath($path)
+    {
+        return $this->cachePath . '/' . sha1($path) . '.js';
+    }
+
+    /**
      * Add transpiler.
      *
      * @return void
