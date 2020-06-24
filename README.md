@@ -124,7 +124,7 @@ class BabelServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->afterResolving('script.compiler', function ($compiler) {
-            $compiler->addTranspiler(new Transpiler);
+            $compiler->addTranspiler(new BabelTranspiler);
         });
     }
 }
