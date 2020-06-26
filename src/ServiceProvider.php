@@ -3,6 +3,7 @@
 namespace BladeScript;
 
 use BladeScript\Factory;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Blade;
 use BladeScript\Engines\CompilerEngine;
 use BladeScript\Engines\MinifierEngine;
@@ -168,5 +169,9 @@ class ServiceProvider extends LaravelServiceProvider
             __DIR__ . '/../config/script.php',
             'script'
         );
+
+        if (!File::exists(storage_path('framework/scripts'))) {
+            File::copyDirectory(__DIR__ . '/../storage/', storage_path('framework/scripts'));
+        }
     }
 }
