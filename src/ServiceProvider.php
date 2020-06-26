@@ -26,16 +26,17 @@ class ServiceProvider extends LaravelServiceProvider
     {
         $this->registerPublishes();
 
-        $this->registerMinifier();
+        if (!config('script.compiled')) {
+            return;
+        }
 
+        $this->registerMinifier();
         $this->registerMinifierEngine();
 
         $this->registerCompilerEngine();
-
         $this->registerScriptCompiler();
 
         $this->registerScriptClearCommand();
-
         $this->registerScriptCacheCommand();
 
         $this->registerFactory();
