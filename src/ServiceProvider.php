@@ -26,7 +26,7 @@ class ServiceProvider extends LaravelServiceProvider
     {
         $this->registerPublishes();
 
-        if (!config('script.compiled')) {
+        if (!config('script.compiled') && $this->app->runningInConsole()) {
             return;
         }
 
