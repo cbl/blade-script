@@ -165,14 +165,14 @@ class ServiceProvider extends LaravelServiceProvider
         $this->publishes([
             __DIR__ . '/../config/script.php' => config_path('script.php')
         ], 'config');
+        
+        if (!File::exists(storage_path('framework/scripts'))) {
+            File::copyDirectory(__DIR__ . '/../storage/', storage_path('framework/scripts'));
+        }
 
         $this->mergeConfigFrom(
             __DIR__ . '/../config/script.php',
             'script'
         );
-
-        if (!File::exists(storage_path('framework/scripts'))) {
-            File::copyDirectory(__DIR__ . '/../storage/', storage_path('framework/scripts'));
-        }
     }
 }
