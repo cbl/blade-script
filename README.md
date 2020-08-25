@@ -31,7 +31,7 @@ Additionally there is the possibility to add transpilers like
 The package can be easily installed via composer.
 
 ```shell
-composer requrie cbl/blade-script
+composer require cbl/blade-script
 ```
 
 Now the necessary assets must be published. This includes the script.php config
