@@ -2,13 +2,12 @@
 
 namespace BladeScript;
 
-use BladeScript\Script;
 use BladeScript\Contracts\ScriptEngine;
 
 class Factory
 {
     /**
-     * Style stack
+     * Style stack.
      *
      * @var string
      */
@@ -41,7 +40,7 @@ class Factory
     /**
      * Create style instance from view.
      *
-     * @param string $path
+     * @param  string $path
      * @return Script
      */
     public function make($path)
@@ -61,8 +60,8 @@ class Factory
     /**
      * Determine if style has been created.
      *
-     * @param string $path
-     * @return boolean
+     * @param  string $path
+     * @return bool
      */
     public function inStack($path)
     {
@@ -72,15 +71,15 @@ class Factory
     /**
      * Render stack.
      *
-     * @param boolean $flat
+     * @param  bool   $flat
      * @return string
      */
     public function render()
     {
-        $styles = "";
+        $styles = '';
 
         foreach ($this->stack as $path => $style) {
-            $styles .= $style->render();
+            $styles .= "\n".$style->render();
         }
 
         return "\n<script>{$styles}</script>\n";
@@ -89,8 +88,8 @@ class Factory
     /**
      * Determine if path has been rendered.
      *
-     * @param string $path
-     * @return boolean
+     * @param  string $path
+     * @return bool
      */
     public function isRendered($path)
     {
@@ -100,8 +99,8 @@ class Factory
     /**
      * Wrap style when not flat.
      *
-     * @param string $style
-     * @param boolean $flat
+     * @param  string $style
+     * @param  bool   $flat
      * @return string
      */
     protected function wrap(string $style, $flat = false)
@@ -116,12 +115,12 @@ class Factory
     /**
      * Determine wether new styles are discovered that can be included.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasNew()
     {
         foreach ($this->stack as $path => $style) {
-            if (!$this->isRendered($path)) {
+            if (! $this->isRendered($path)) {
                 return true;
             }
         }
