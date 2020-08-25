@@ -3,27 +3,39 @@
 namespace BladeScript\Components;
 
 use BladeScript\Factory;
+use BladeScript\Script;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
-use Illuminate\Support\Facades\File;
 
 class ScriptComponent extends Component
 {
     /**
-     * Style language.
+     * Script language.
      *
      * @var string
      */
     public $lang;
 
-    public $style;
+    /**
+     * Script instance.
+     *
+     * @var Script
+     */
+    public $script;
 
+    /**
+     * Script Factory instance.
+     *
+     * @var Factory
+     */
     public $factory;
 
     /**
      * Create new StyleComponent instance.
      *
-     * @param string $lang
+     * @param  Factory $factory
+     * @param  string  $lang
      * @return void
      */
     public function __construct(Factory $factory, $lang = 'css')
@@ -34,25 +46,35 @@ class ScriptComponent extends Component
         $this->makeScript();
     }
 
+    /**
+     * Make script.
+     *
+     * @return void
+     */
     public function makeScript()
     {
         $path = $this->getPathFromTrace();
 
-        if (!$path) {
+        if (! $path) {
             return;
         }
 
         $this->script = $this->factory->make($path);
     }
 
+    /**
+     * Get path from trace.
+     *
+     * @return string
+     */
     protected function getPathFromTrace()
     {
         foreach (debug_backtrace() as $trace) {
-            if (!array_key_exists('file', $trace)) {
+            if (! array_key_exists('file', $trace)) {
                 continue;
             }
 
-            if (!Str::startsWith($trace['file'], config('view.compiled'))) {
+            if (! Str::startsWith($trace['file'], config('view.compiled'))) {
                 continue;
             }
 
@@ -60,6 +82,12 @@ class ScriptComponent extends Component
         }
     }
 
+    /**
+     * Get path from compiled view.
+     *
+     * @param  string $compiled
+     * @return string
+     */
     protected function getPathFromCompiled($compiled)
     {
         return trim(Str::between(File::get($compiled), '/**PATH', 'ENDPATH**/'));
