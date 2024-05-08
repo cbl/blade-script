@@ -29,7 +29,7 @@ class ScriptComponent extends Component
      *
      * @var Factory
      */
-    public $factory;
+    public $scriptFactory;
 
     /**
      * Create new StyleComponent instance.
@@ -41,7 +41,7 @@ class ScriptComponent extends Component
     public function __construct(Factory $factory, $lang = 'css')
     {
         $this->lang = $lang;
-        $this->factory = $factory;
+        $this->scriptFactory = $factory;
 
         $this->makeScript();
     }
@@ -59,7 +59,7 @@ class ScriptComponent extends Component
             return;
         }
 
-        $this->script = $this->factory->make($path);
+        $this->script = $this->scriptFactory->make($path);
     }
 
     /**
