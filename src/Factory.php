@@ -9,7 +9,7 @@ class Factory
     /**
      * Style stack.
      *
-     * @var string
+     * @var array
      */
     protected $stack = [];
 
@@ -23,7 +23,7 @@ class Factory
     /**
      * Engine resolver.
      *
-     * @var \BladeScript\Contracts\Engine
+     * @var \BladeScript\Contracts\ScriptEngine
      */
     protected $engine;
 
